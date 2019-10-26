@@ -1,0 +1,41 @@
+String postfija, acum;
+        char caracter;
+        int n, i;
+        double a, b, c;
+
+        postfija = txtPosFija.getText();
+        n = postfija.length();
+        acum = "";
+
+        for (i = 0; i < n; i++)
+        {
+            caracter = postfija.charAt(i);
+            if (caracter == ' ' || caracter == ',')
+                continue;
+            else
+                if (caracter == '+' || caracter == '-' || caracter == '*' || caracter == '/' || caracter == '^')
+                {
+                    b = operandos.sacar();
+                    a = operandos.sacar();
+                    c = 0;
+
+                    if (caracter == '+') c = a + b;
+                    if (caracter == '-') c = a - b;
+                    if (caracter == '*') c = a * b;
+                    if (caracter == '/') c = a / b;
+                    if (caracter == '^') c = Math.pow(a, b);
+
+                    operandos.poner(c);
+                }
+                else
+                {
+                    acum = acum + caracter;
+                    if(postfija.charAt(i+1) == ' ' || postfija.charAt(i+1) == ',')
+                    {
+                        c = Double.parseDouble(acum);
+                        operandos.poner(c);
+                        acum = "";
+                    }
+                }
+        }
+        txtResultado.setText(operandos.sacar() + "");
